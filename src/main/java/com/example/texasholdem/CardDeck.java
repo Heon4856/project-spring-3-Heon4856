@@ -3,13 +3,16 @@ package com.example.texasholdem;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 실제 게임에 플레이할 카드 뭉치.
+ */
 public class CardDeck {
     private static final List<Card> protoDeck = new ArrayList<>();
 
     static {
         for (Card.Suit suit : Card.Suit.values())
-            for (Card.Rank rank : Card.Rank.values())
-                protoDeck.add(new Card(rank, suit));
+            for (Card.Denomination denomination : Card.Denomination.values())
+                protoDeck.add(new Card(denomination, suit));
     }
 
     @Override
