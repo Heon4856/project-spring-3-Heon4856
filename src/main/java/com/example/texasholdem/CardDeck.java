@@ -8,22 +8,32 @@ import java.util.List;
  * 실제 게임에 플레이할 카드 뭉치.
  */
 public class CardDeck {
-    private static final List<Card> cardDeck = new ArrayList<>();
+    private List<Card> cards;
 
-    static {
-        for (Card.Suit suit : Card.Suit.values())
-            for (Card.Denomination denomination : Card.Denomination.values())
-                cardDeck.add(new Card(denomination, suit));
+    public CardDeck() {
+        this.cards = this.generateCards();
+        Collections.shuffle(this.cards);
     }
 
-    public List<Card> shuffle(){
-        Collections.shuffle((cardDeck));
+
+    private List<Card> generateCards() {
+        List<Card> cardDeck = new ArrayList<>();
+        for (Card.Suit suit : Card.Suit.values()) {
+            for (Card.Denomination denomination : Card.Denomination.values()) {
+                cardDeck.add(new Card(denomination, suit));
+            }
+        }
         return cardDeck;
     }
 
+    public List<Card> getCards() {
+        return cards;
+    }
+
+
     public Card draw(){
-        Card drawnCard = cardDeck.get(0);
-        cardDeck.remove(0);
+        Card drawnCard = this.cards.get(0);
+        this.cards.remove(0);
         return drawnCard;
     }
 
@@ -31,7 +41,7 @@ public class CardDeck {
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
-        for(Card card : cardDeck){
+        for(Card card : this.cards){
             sb.append(card.toString());
             sb.append("\n");
         }
