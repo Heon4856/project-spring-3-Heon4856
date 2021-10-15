@@ -3,23 +3,46 @@ package com.example.texasholdem;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class DealerTest {
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-    private Dealer dealer;
-    private Player player;
-    private CardDeck cardDeck;
+public class DealerTest {
 
     private final String testName = "test_name";
     private final Long testChips = 1000L;
+    private Dealer dealer;
+    private Player player;
+    private CardDeck cardDeck;
+    private Table table;
+    private int BURNED_CARD_SIZE = 51;
+
+    @BeforeEach
+    public void setUp() {
+        cardDeck = new CardDeck();
+        player = new Player(testName, testChips);
+        table = new Table();
+        dealer = new Dealer(cardDeck);
+
+    }
 
 
     @Test
-    public void test_drawCard(){
-        cardDeck = new CardDeck();
-        player = new Player(testName, testChips);
-        dealer =new Dealer(cardDeck);
-        dealer.putCard(player,cardDeck);
+    public void test_drawCard() {
 
-        System.out.println(player.showCards());
+        Card playerCard = cardDeck.getCards().get(0);
+        Card tableCard = cardDeck.getCards().get(1);
+
+        dealer.putCardToPlayer(player, cardDeck);
+        dealer.putCardToTable(table, cardDeck);
+
+        assertEquals(playerCard, player.showCards().get(0));
+        assertEquals(tableCard, table.showCards().get(0));
+    }
+
+    @Test
+    public void test_burnCard() {
+
+        dealer.burnCard(cardDeck);
+        assertEquals(BURNED_CARD_SIZE, cardDeck.getCards().size());
+
     }
 }
