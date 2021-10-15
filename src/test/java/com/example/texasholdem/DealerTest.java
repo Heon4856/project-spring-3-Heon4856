@@ -3,6 +3,9 @@ package com.example.texasholdem;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DealerTest {
@@ -40,9 +43,14 @@ public class DealerTest {
 
     @Test
     public void test_burnCard() {
+        List<Card> expectedBurnCardDeck = new ArrayList<>();
+
+        for(int i=1 ;i<= 51;i++ ){
+            expectedBurnCardDeck.add(cardDeck.getCards().get(i));
+        }
 
         dealer.burnCard(cardDeck);
         assertEquals(BURNED_CARD_SIZE, cardDeck.getCards().size());
-
+        assertEquals(expectedBurnCardDeck, cardDeck.getCards());
     }
 }
