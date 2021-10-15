@@ -23,14 +23,13 @@ class CardDeckTest {
     }
 
     @Test
-    public void Test_DifferenceBetweenTwoDeck () {
+    public void Test_DifferenceBetweenTwoDeck() {
         assertNotEquals(cardDeck.getCards(), shuffleCardDeck.getCards());
     }
 
     @Nested
     @DisplayName("Draw메소드는")
     class Test_DrawFirstCard {
-
 
         @BeforeEach
         void setUp() {
@@ -44,13 +43,13 @@ class CardDeckTest {
 
         @Test
         @DisplayName("카드덱의 첫장을 가져온다.")
-        void Test_DrawFirstCard () {
+        void Test_DrawFirstCard() {
             assertEquals(TopOfCardDeck, DrawnCard);
         }
 
         @Test
         @DisplayName("카드덱의 첫장을 pop한다.")
-        void Test_IfDrawThenPopCard () {
+        void Test_IfDrawThenPopCard() {
             assertEquals(SizeOfCardsBeforeDraw - 1, SizeOfCardsAfterDraw);
         }
 
