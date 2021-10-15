@@ -9,7 +9,6 @@ public class Player {
     private Long chips;
     private List<Card> playerCard;
     private boolean turn;
-    private Long bet;
 
     public Player(String name, Long chips) {
         this.name = name;
@@ -17,8 +16,9 @@ public class Player {
         this.playerCard = new ArrayList<>();
     }
 
-    public void setBet(Long bet) {
-        this.bet = bet;
+    public void Bet(Long CashToBet) {
+        this.chips = this.chips - CashToBet;
+
     }
 
     public void getCard(Card card) {
@@ -28,6 +28,10 @@ public class Player {
 
     public List<Card> showCards() {
         return playerCard;
+    }
+
+    public Long getChips(){
+        return chips;
     }
 
 
