@@ -1,9 +1,14 @@
 package com.example.texasholdem;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 /**
  * 카드 객체.
  */
 public class Card {
+
 
     /**
      * 카드의 숫자
@@ -24,8 +29,16 @@ public class Card {
         this.suit = suit;
     }
 
-    public Denomination denomination() { return denomination; }
-    public Suit suit() { return suit; }
+
+    public static List<String> getDenominationList() {
+        List<String> denominationList = Stream.of(Denomination.values())
+                .map(Enum::name)
+                .collect(Collectors.toList());
+
+        return denominationList; }
+
+    public String getDenomination() { return denomination.toString(); }
+    public Suit getSuit() { return this.suit; }
     public String toString() { return denomination + " of " + suit; }
 
 }
