@@ -22,16 +22,23 @@ public class HandValueEvaluator {
         straightCheckNum = findStraight(allCard);
         duplicatedCheck = findDuplicated(allCard);
 
+        if (duplicatedCheck == "Four" || duplicatedCheck == "FullHouse") {
+            return duplicatedCheck;
+        }
+
         if (flushCheckString != "nope") {
             return flushCheckString;
         }
 
         if (straightCheckNum > 0) {
             return straightCheckNum + "straight";
-        } else {
-            return "not Straight";
         }
 
+        if (duplicatedCheck != "nothing") {
+            return duplicatedCheck;
+        }
+
+        return "high-card";
     }
 
     private String findDuplicated(List<Card> allCard) {
@@ -50,13 +57,14 @@ public class HandValueEvaluator {
                 return "Four";
             } else if (Collections.frequency(duplicatedChecker, cardDenomination) == 3) {
                 tripleList.add(cardDenomination);
-            } else if (Collections.frequency(duplicatedChecker, cardDenomination) == 3) {
+            } else if (Collections.frequency(duplicatedChecker, cardDenomination) == 2) {
                 pairList.add(cardDenomination);
             }
 
         }
 
-        if (tripleList.size() == 2 || (tripleList.size() == 1 && pairList.size() >= 1)) {
+
+        if (tripleList.size() == 2 || tripleList.size() == 1 && pairList.size() > 0) {
             return "FullHouse";
         } else if (tripleList.size() == 1) {
             return "triple";
