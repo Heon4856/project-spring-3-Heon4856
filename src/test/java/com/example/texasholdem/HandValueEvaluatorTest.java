@@ -376,4 +376,29 @@ public class HandValueEvaluatorTest {
         assertEquals("Four", handValueEvaluator.HandEvaluator(allCards));
 
     }
+
+
+    @Test
+    public void test_HighCardCheck(){
+        Card card1 = new Card(denomination.QUEEN, suit.SPADE);
+        Card card2 = new Card(denomination.SEVEN, suit.DIAMOND);
+        Card card3 = new Card(denomination.TWO, suit.CLOVER);
+        Card card4 = new Card(denomination.KING, suit.CLOVER);
+        Card card5 = new Card(denomination.EIGHT, suit.SPADE);
+        Card card6 = new Card(denomination.FIVE, suit.DIAMOND);
+        Card card7 = new Card(denomination.SIX, suit.SPADE);
+
+        allCards.add(card1);
+        allCards.add(card2);
+        allCards.add(card3);
+        allCards.add(card4);
+        allCards.add(card5);
+        allCards.add(card6);
+        allCards.add(card7);
+
+        HandValueEvaluator handValueEvaluator = new HandValueEvaluator();
+//        System.out.println("handValueEvaluator.HandEvaluator(allCards) = " + handValueEvaluator.HandEvaluator(allCards));
+        assertEquals("11", handValueEvaluator.HandEvaluator(allCards));
+
+    }
 }
