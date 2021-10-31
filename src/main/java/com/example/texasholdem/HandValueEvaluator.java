@@ -10,23 +10,26 @@ public class HandValueEvaluator {
     List<Card> allCard;
     List<Integer> straightCheck = new ArrayList<>();
     List<Integer> duplicatedChecker = new ArrayList<>();
+    List<Integer> highCardChecker = new ArrayList<>();
 
     Denomination denomination;
     Integer straightCheckNum;
     String flushCheckString;
     String duplicatedCheck;
+    Integer highCard;
 
     public String HandEvaluator(List<Card> allCard) {
 
         flushCheckString = findFlush(allCard);
         straightCheckNum = findStraight(allCard);
         duplicatedCheck = findDuplicated(allCard);
+        highCard = findHighCard(allCard);
 
         if (duplicatedCheck.equals("Four") || duplicatedCheck.equals("FullHouse")) {
             return duplicatedCheck;
         }
 
-        if (!flushCheckString.equals( "nope")) {
+        if (!flushCheckString.equals("nope")) {
             return flushCheckString;
         }
 
@@ -38,7 +41,21 @@ public class HandValueEvaluator {
             return duplicatedCheck;
         }
 
-        return "high-card";
+        return Integer.toString(highCard);
+    }
+
+    private Integer findHighCard(List<Card> allCard) {
+        List<String> denominationList = Card.getDenominationList();
+
+        for (Card card : allCard) {
+            Integer cardOrder = denominationList.indexOf(card.getDenomination());
+            highCardChecker.add(cardOrder);
+        }
+        highCardChecker.sort(Comparator.naturalOrder());
+        Integer lastIndex = highCardChecker.size() - 1;
+
+        return highCardChecker.get(lastIndex);
+
     }
 
     private String findDuplicated(List<Card> allCard) {
@@ -141,6 +158,7 @@ public class HandValueEvaluator {
             Integer cardOrder = denominationList.indexOf(card.getDenomination());
             straightCheck.add(cardOrder);
         }
+
         straightCheck.sort(Comparator.naturalOrder());
 
         for (int i = 0; i < straightCheck.size() - 1; i++) {
